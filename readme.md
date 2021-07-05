@@ -2,7 +2,7 @@
 
 ## 一、前言
 
-[本工程](https://github.com/xuhongv/qcloud-esp32-llsync-mqtt)用做ESP32的示例工程，基于安信可科技`NodeMCU-ESP32`开发板上演示了终端设备通过`LLSync SDK`和`Explorer SDK`进行配网以及和云端通信。
+[本工程](https://github.com/xuhongv/qcloud-esp32-llsync-mqtt)用做 安信可科技`NodeMCU-ESP32`开发板 & 腾讯物联开发平台 配网+通讯的示例工程，基于安信可科技`NodeMCU-ESP32`开发板上演示了终端设备通过`LLSync SDK`和`Explorer SDK`进行配网以及和云端通信。
 
 - 硬件准备购买：[https://item.taobao.com/item.htm?id=548905088891](https://item.taobao.com/item.htm?id=548905088891)
 - 设备源码地址：[https://github.com/xuhongv/qcloud-esp32-llsync-mqtt](https://github.com/xuhongv/qcloud-esp32-llsync-mqtt)
@@ -173,7 +173,6 @@ static char sg_device_secret[MAX_SIZE_OF_DEVICE_SECRET + 1] = "4mFTgmh8VFoqEYLdY
 | 微信小程序蓝牙+WiFi控制安信可ESP32-S/C3S模块应用   | https://github.com/xuhongv/ESP32WiFiBleControlProject | 2021.6   |
 | 安信可ESP32-S模组适配腾讯物联开发平台llsync蓝牙配网+MQTT远程控制 | https://github.com/xuhongv/qcloud-esp32-llsync-mqtt | 2021.7   |
 
-
 ## 四、讨论交流
 
 <table>
@@ -194,4 +193,3 @@ static char sg_device_secret[MAX_SIZE_OF_DEVICE_SECRET + 1] = "4mFTgmh8VFoqEYLdY
     </tr>
   </tbody>
 </table>
-
