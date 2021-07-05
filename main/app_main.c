@@ -14,7 +14,7 @@
 #include "esp_log.h"
 #include "ble_qiot_export.h"
 #include "qcloud_wifi_config.h"
-#include "driver/rmt.h"
+#include "led_strip.h"
 #include "button.h"
 
 #define EXAMPLE_CHASE_SPEED_MS (10)
@@ -34,6 +34,7 @@ static EventGroupHandle_t s_wifi_event_group;
 
 static int s_retry_num = 0;
 bool sg_gotip_flag = false;
+bool flag_net = false;
 
 static void event_handler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data)
 {
@@ -61,7 +62,10 @@ static void event_handler(void *arg, esp_event_base_t event_base, int32_t event_
         s_retry_num = 0;
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
         sg_gotip_flag = true;
-        xTaskCreate(wifi_config_sample_main, "wifi_config_sample_main", 1024 * 8, NULL, 7, NULL); //
+        if (!flag_net)
+        {
+            xTaskCreate(wifi_config_sample_main, "wifi_config_sample_main", 1024 * 8, NULL, 7, NULL);
+        }
     }
 
     else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START)
@@ -74,6 +78,7 @@ static void event_handler(void *arg, esp_event_base_t event_base, int32_t event_
             if (strlen((const char *)wifi_config.sta.ssid) == 0)
             {
                 ESP_LOGI(TAG, "esp_wifi_get_config ok , but null config ");
+                flag_net = true;
                 xTaskCreate(inter_llsync_combo, "inter_llsync_combo", 1024 * 6, NULL, 7, NULL); //
             }
 
@@ -152,13 +157,22 @@ ble_qiot_ret_status_t ble_combo_wifi_connect()
 static void ButtonShortPressCallBack(void *arg)
 {
     ESP_LOGI(TAG, "ButtonShortPressCallBack  esp_get_free_heap_size(): %d ", esp_get_free_heap_size());
+
+    led_set_level(!led_get_level());
 }
 //长按函数
 static void ButtonLongPressCallBack(void *arg)
 {
     ESP_LOGI(TAG, "ButtonLongPressCallBack  esp_get_free_heap_size(): %d ", esp_get_free_heap_size());
     esp_wifi_restore();
-    vTaskDelay(2000 / portTICK_RATE_MS);
+
+    led_set_level(!led_get_level());
+    vTaskDelay(1000 / portTICK_RATE_MS);
+    led_set_level(!led_get_level());
+    vTaskDelay(1000 / portTICK_RATE_MS);
+    led_set_level(!led_get_level());
+    vTaskDelay(1000 / portTICK_RATE_MS);
+    led_set_level(!led_get_level());
     esp_restart();
 }
 
@@ -175,7 +189,7 @@ void TaskButton(void *pvParameters)
     // BUTTON_PUSH_CB 表示按下就触发回调函数，如果设置了长按，这个依然会同时触发！
     // BUTTON_RELEASE_CB 表示释放才回调，如果设置了长按，这个依然会同时触发！
     // BUTTON_TAP_CB 此选项释放才回调，如果设置了长按，这个不会同时触发！
-    button_dev_add_tap_cb(BUTTON_PUSH_CB, ButtonShortPressCallBack, "TAP", 50 / portTICK_PERIOD_MS, btn_handle);
+    button_dev_add_tap_cb(BUTTON_TAP_CB, ButtonShortPressCallBack, "TAP", 50 / portTICK_PERIOD_MS, btn_handle);
     // 设置长按 2s后触发
     button_dev_add_press_cb(0, ButtonLongPressCallBack, NULL, 2000 / portTICK_PERIOD_MS, btn_handle);
     vTaskDelete(NULL);
@@ -184,6 +198,9 @@ void TaskButton(void *pvParameters)
 void app_main()
 {
     nvs_flash_init();
+
+    led_init();
+    led_set_high();
 
     wifi_init_sta();
 

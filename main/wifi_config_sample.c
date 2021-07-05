@@ -31,7 +31,7 @@
 #include "utils_timer.h"
 #include "esp_event.h"
 #include "esp_wifi.h"
-
+#include "led_strip.h"
 #include "qcloud_wifi_config.h"
 #include "qcloud_wifi_config_internal.h"
 
@@ -215,16 +215,13 @@ static void property_report(void *pClient)
 {
     char message[256] = {0};
     int message_len = 0;
-    static int sg_report_index = 0;
 
     sg_report_index++;
+    sg_led_info.power_off = led_get_level();
     message_len = HAL_Snprintf(message, sizeof(message), "{\"method\":\"report\", \"clientToken\":\"%s-%d\", "
                                                          "\"params\":{\"power_switch\":%d, \"color\":%d, \"brightness\":%d, \"name\":\"%s\"}}",
-                               sg_devInfo.product_id, sg_report_index, sg_led_info.power_off, sg_led_info.color,
+                               sg_devInfo.product_id, HAL_Timer_current_sec(), sg_led_info.power_off, sg_led_info.color,
                                sg_led_info.brightness, sg_devInfo.device_name);
-    // only change the brightness in the demo
-    sg_led_info.brightness %= 100;
-    sg_led_info.brightness++;
     property_topic_publish(pClient, message, message_len);
 }
 
@@ -242,26 +239,23 @@ static void property_control_handle(void *pClient, const char *token, const char
         return;
     }
 
-    Log_e("Successful to parse params");
-
     for (int i = 0; i < sizeof(sg_property_name) / sizeof(sg_property_name[0]); i++)
     {
         property_param = LITE_json_value_of(sg_property_name[i], params);
         if (NULL != property_param)
         {
-            Log_i("\t%-16s = %-10s", sg_property_name[i], property_param);
-            if (i == 1)
+            Log_i("------------ %s = %s", sg_property_name[i], property_param);
+
+            if (0 == (strcmp(sg_property_name[i], "power_switch")))
             {
-                // only change the brightness in the demo
-                sg_led_info.brightness = atoi(property_param);
+                led_set_level(atoi(property_param));
             }
             HAL_Free(property_param);
         }
     }
 
     // method: control_reply
-    message_len = HAL_Snprintf(message, sizeof(message),
-                               "{\"method\":\"control_reply\", \"code\":0, \"clientToken\":\"%s\"}", token);
+    message_len = HAL_Snprintf(message, sizeof(message), "{\"method\":\"control_reply\", \"code\":0, \"clientToken\":\"%s\"}", token);
     property_topic_publish(pClient, message, message_len);
 
     HAL_Free(params);
@@ -562,10 +556,10 @@ void wifi_config_sample_main(void *pvParameters)
 
         if (sg_loop_test)
             HAL_SleepMs(1000);
-
-        // method: report
-        property_report(client);
     } while (sg_loop_test);
+
+    // method: report
+    property_report(client);
 
     rc = IOT_MQTT_Destroy(&client);
     IOT_Log_Upload(true);
