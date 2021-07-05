@@ -1,4 +1,4 @@
-![](https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/bbs/important/show_esp32_llsync.jpg)
+![](https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/bbs/important/show_esp32_llsync_tencent.jpg)
 
 ## 一、前言
 
