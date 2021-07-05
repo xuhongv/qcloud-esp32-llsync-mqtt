@@ -1,6 +1,11 @@
-## 一、前言
-本工程用做ESP32的示例工程，基于安信可科技`NodeMCU-ESP32`开发板上演示了终端设备通过`LLSync SDK`和`Explorer SDK`进行配网以及和云端通信。
+![](https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/bbs/important/show_esp32_llsync.jpg)
 
+## 一、前言
+
+[本工程](https://github.com/xuhongv/qcloud-esp32-llsync-mqtt)用做ESP32的示例工程，基于安信可科技`NodeMCU-ESP32`开发板上演示了终端设备通过`LLSync SDK`和`Explorer SDK`进行配网以及和云端通信。
+
+- 硬件准备购买：[https://item.taobao.com/item.htm?id=548905088891](https://item.taobao.com/item.htm?id=548905088891)
+- 设备源码地址：[https://github.com/xuhongv/qcloud-esp32-llsync-mqtt](https://github.com/xuhongv/qcloud-esp32-llsync-mqtt)
 
 ## 二、源码目录说明
 
@@ -148,4 +153,45 @@ static char sg_device_secret[MAX_SIZE_OF_DEVICE_SECRET + 1] = "4mFTgmh8VFoqEYLdY
 > 本程序已经适配了在 安信可科技`NodeMCU-ESP32`开发板上，可以参考下面代码。
 >
 > 相关代码在 qcloud-llsync-config-net-esp32\main\wifi_config_sample.c 文件的 property_report 里面。
+
+## 五、开源微信物联网控制一览表
+
+| 开源项目                                                  | 地址                                                        | 开源时间 |
+| --------------------------------------------------------- | ----------------------------------------------------------- | -------- |
+| 微信小程序连接mqtt服务器，控制esp8266智能硬件             | https://github.com/xuhongv/WeChatMiniEsp8266                | 2018.11  |
+| 微信公众号airkiss配网以及近场发现在esp8266 rtos3.1 的实现 | https://github.com/xuhongv/xLibEsp8266Rtos3.1AirKiss        | 2019.3   |
+| 微信公众号airkiss配网以及近场发现在esp32 esp-idf 的实现   | https://github.com/xuhongv/xLibEsp32IdfAirKiss              | 2019.9   |
+| 微信小程序控制esp8266实现七彩效果项目源码                 | https://github.com/xuhongv/WCMiniColorSetForEsp8266         | 2019.9   |
+| 一个基于安信可Ca-01的微信小程序定位追踪显示工程           | https://github.com/xuhongv/Cat.1TracerWcMini   | 2019.9   |
+| 微信小程序蓝牙配网blufi实现在esp32源码                    | https://github.com/xuhongv/BlufiEsp32WeChat                 | 2019.11  |
+| 微信小程序蓝牙ble控制esp32七彩灯效果                      | https://blog.csdn.net/xh870189248/article/details/101849759 | 2019.10  |
+| 可商用的事件分发的微信小程序mqtt断线重连框架              | https://blog.csdn.net/xh870189248/article/details/88718302  | 2019.2   |
+| 微信小程序以 websocket 连接阿里云IOT物联网平台mqtt服务器  | https://blog.csdn.net/xh870189248/article/details/91490697  | 2019.6   |
+| 微信公众号网页实现连接mqtt服务器                          | https://blog.csdn.net/xh870189248/article/details/100738444 | 2019.9   |
+| 微信小程序 AP 配网安信可 Wi-Fi 模块入网示例               |https://github.com/Ai-Thinker-Open/Ai-Thinker-Open_WeChatMiniAP2Net | 2020.5   |
+| 安信可IoT微信小程序全面开源，小程序上实现一键配网+控制+绑定|https://blog.csdn.net/xh870189248/article/details/107140464 | 2020.8   |
+| 微信小程序蓝牙+WiFi控制安信可ESP32-S/C3S模块应用   | https://github.com/xuhongv/ESP32WiFiBleControlProject | 2021.6   |
+| 安信可ESP32-S模组适配腾讯物联开发平台llsync蓝牙配网+MQTT远程控制 | https://github.com/xuhongv/qcloud-esp32-llsync-mqtt | 2021.7   |
+
+
+## 四、讨论交流
+
+<table>
+  <tbody>
+    <tr >
+      <td align="center" valign="middle" style="border-style:none">
+       <img class="QR-img" height="260" width="260" src="https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/bbs/important/qq_group.png">
+        <p style="font-size:12px;">QQ群号：434878850</p>
+      </td>
+      <td align="center" valign="middle" style="border-style:none">
+        <img class="QR-img" height="260" width="260" src="https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/bbs/important/wechat_account.jpg">
+        <p style="font-size:12px;">本人微信公众号：徐宏blog</p>
+      </td>
+      <td align="center" valign="middle" style="border-style:none">
+        <img class="QR-img" height="260" width="260" src="https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/bbs/important/wechat_me.jpg">
+        <p style="font-size:12px;">私人工作微信，添加标明来意</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
