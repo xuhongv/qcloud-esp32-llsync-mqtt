@@ -1,23 +1,3 @@
-/*
- * Tencent is pleased to support the open source community by making IoT Hub
- available.
- * Copyright (C) 2016 THL A29 Limited, a Tencent company. All rights reserved.
-
- * Licensed under the MIT License (the "License"); you may not use this file
- except in
- * compliance with the License. You may obtain a copy of the License at
- * http://opensource.org/licenses/MIT
-
- * Unless required by applicable law or agreed to in writing, software
- distributed under the License is
- * distributed on an "AS IS" basis, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND,
- * either express or implied. See the License for the specific language
- governing permissions and
- * limitations under the License.
- *
- */
-
 #include <signal.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -215,8 +195,6 @@ static void property_report(void *pClient)
 {
     char message[256] = {0};
     int message_len = 0;
-
-    sg_report_index++;
     sg_led_info.power_off = led_get_level();
     message_len = HAL_Snprintf(message, sizeof(message), "{\"method\":\"report\", \"clientToken\":\"%s-%d\", "
                                                          "\"params\":{\"power_switch\":%d, \"color\":%d, \"brightness\":%d, \"name\":\"%s\"}}",
